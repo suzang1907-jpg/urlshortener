@@ -50,10 +50,12 @@ app.get("/:shortCode", async (req, res) => {
 
     let finalUrlString = targetUrlObject.href;
 
-    if (finalUrlString.includes("?")) {
-      finalUrlString += "&v=" + v;
-    } else {
-      finalUrlString += "?v=" + v;
+    if (v) {
+      if (finalUrlString.includes("?")) {
+        finalUrlString += "&v=" + v;
+      } else {
+        finalUrlString += "?v=" + v;
+      }
     }
 
     res.status(301);
