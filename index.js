@@ -34,12 +34,29 @@ app.get("/:shortCode", async (req, res) => {
     parsedShortCode = parsedShortCode.replaceAll("b-", "/");
     parsedShortCode = parsedShortCode.replaceAll("e-", "?");
 
-    let targetUrl = "https://" + domain.domain + "/" + parsedShortCode;
+    let targetUrlObject;
+    try {
+      let cleanBase = domain.domain.replace(/https?:\/\//, "");
+      const baseUrl = `https://${cleanBase}`;
+      // Note: The URL constructor handles appending the path correctly
+      targetUrlObject = new URL(parsedShortCode, baseUrl);
+    } catch (e) {
+      console.error("Error creating target URL:", e);
+      // Handle error (e.g., return a 500 error)
+      return res.status(500).send("Invalid target domain or code.");
+    }
+
+    // 3. Append the original query string (req.query) to the new URL
+    // In the example request, this is '?v=1761789480'
+    const originalQuery = req.url.includes("?")
+      ? req.url.substring(req.url.indexOf("?"))
+      : "";
+    const finalUrlString = targetUrlObject.href + originalQuery;
 
     res.status(301);
 
     res.set({
-      Location: targetUrl,
+      Location: finalUrlString,
       "Content-Length": "0",
       "X-Content-Type-Options": "nosniff",
       "X-XSS-Protection": "1; mode=block",
