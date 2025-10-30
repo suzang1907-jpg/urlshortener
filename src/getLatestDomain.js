@@ -31,7 +31,7 @@ const pool = mysql.createPool({
 async function getLatestDomain() {
   const now = Date.now();
   if (cachedDomain && now < cacheExpiry) {
-    console.log("Serving latest entry from cache.");
+    console.log("Serving latest entry from cache: " + cachedDomain.domain);
     return cachedDomain;
   }
 
