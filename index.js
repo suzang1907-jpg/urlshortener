@@ -7,15 +7,14 @@ const port = process.env.PORT || 3000;
 
 app.use((req, res, next) => {
   console.log(
-    `[${new Date().toISOString()}] IR: ${req.method} ${
-      req.originalUrl
-    }`
+    `[${new Date().toISOString()}] IR: ${req.method} ${req.originalUrl}`
   );
   next();
 });
 
 app.get("/:shortCode", async (req, res) => {
   let shortCode = req.params.shortCode;
+  let v = req.query.v;
   let domain = await getLatestDomain();
 
   if (domain) {
@@ -48,10 +47,14 @@ app.get("/:shortCode", async (req, res) => {
 
     // 3. Append the original query string (req.query) to the new URL
     // In the example request, this is '?v=1761789480'
-    const originalQuery = req.url.includes("?")
-      ? req.url.substring(req.url.indexOf("?"))
-      : "";
-    const finalUrlString = targetUrlObject.href + originalQuery;
+
+    let finalUrlString = targetUrlObject.href;
+
+    if (finalUrlString.includes("?")) {
+      finalUrlString += "&v=" + v;
+    } else {
+      finalUrlString += "?v=" + v;
+    }
 
     res.status(301);
 
