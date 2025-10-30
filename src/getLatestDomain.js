@@ -19,9 +19,13 @@ const pool = mysql.createPool({
   user: user,
   password: password,
   database: database,
+  port: process.env.MYSQL_PORT || 3306,
   waitForConnections: true,
-  connectionLimit: 10,
+  connectionLimit: 20,
   queueLimit: 0,
+  idleTimeout: 60000,
+  enableKeepAlive: true,
+  keepAliveInitialDelay: 0,
 });
 
 async function getLatestDomain() {
