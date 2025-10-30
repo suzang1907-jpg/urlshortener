@@ -4,8 +4,7 @@
   "description": "urlshortener",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js",
-    "domain:sync": "node ./console/domainSync.js"
+    "start": "node index.js"
   },
   "keywords": [],
   "author": "",

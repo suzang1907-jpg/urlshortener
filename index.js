@@ -1,5 +1,5 @@
 const express = require("express");
-const { default: getLatestDomain } = require("./src/getLatestDomain");
+const getLatestDomain = require("./src/getLatestDomain");
 require("dotenv").config();
 
 const app = express();
