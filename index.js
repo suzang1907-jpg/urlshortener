@@ -32,7 +32,7 @@ app.get("/:shortCode", async (req, res) => {
     parsedShortCode = parsedShortCode.replaceAll("b-", "/");
     parsedShortCode = parsedShortCode.replaceAll("e-", "?");
 
-    let targetUrl = domain.domain + parsedShortCode;
+    let targetUrl = "https://" + domain.domain + "/" + parsedShortCode;
 
     res.status(301);
 
