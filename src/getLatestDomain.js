@@ -40,7 +40,7 @@ async function getLatestDomain() {
         SELECT *
         FROM domains
         WHERE type = ?
-        ORDER BY id DESC
+        ORDER BY created_at DESC
         LIMIT 1;
     `;
   const type = "offer_list";
@@ -53,7 +53,9 @@ async function getLatestDomain() {
       cachedDomain = latestEntry;
       cacheExpiry = now + CACHE_TTL;
       console.log(
-        "Cache updated. Next expiry:",
+        "Cache updated:",
+        latestEntry.domain,
+        " Next expiry:",
         new Date(cacheExpiry).toLocaleTimeString()
       );
     } else {
