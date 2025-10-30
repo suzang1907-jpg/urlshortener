@@ -7,7 +7,7 @@ const port = process.env.PORT || 3000;
 
 app.use((req, res, next) => {
   console.log(
-    `[${new Date().toISOString()}] Incoming Request: ${req.method} ${
+    `[${new Date().toISOString()}] IR: ${req.method} ${
       req.originalUrl
     }`
   );
