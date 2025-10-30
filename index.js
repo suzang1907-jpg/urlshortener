@@ -24,6 +24,7 @@ app.get("/:shortCode", async (req, res) => {
     parsedShortCode = parsedShortCode.replaceAll("ac-", "amp/c/");
     parsedShortCode = parsedShortCode.replaceAll("bc-", "blog/");
     parsedShortCode = parsedShortCode.replaceAll("lc-", "location/");
+    parsedShortCode = parsedShortCode.replaceAll("kc-", "keyword/");
     parsedShortCode = parsedShortCode.replaceAll("c-", "country=");
     parsedShortCode = parsedShortCode.replaceAll("s-", "city=");
     parsedShortCode = parsedShortCode.replaceAll("d-", "district=");
