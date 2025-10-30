@@ -15,11 +15,24 @@ app.use((req, res, next) => {
 });
 
 app.get("/:shortCode", async (req, res) => {
-  const shortCode = req.params.shortCode;
+  let shortCode = req.params.shortCode;
   let domain = await getLatestDomain();
 
   if (domain) {
-    let targetUrl = domain.domain + shortCode;
+    let parsedShortCode = shortCode;
+
+    parsedShortCode = parsedShortCode.replaceAll("ac-", "amp/c/");
+    parsedShortCode = parsedShortCode.replaceAll("bc-", "blog/");
+    parsedShortCode = parsedShortCode.replaceAll("lc-", "location/");
+    parsedShortCode = parsedShortCode.replaceAll("c-", "country=");
+    parsedShortCode = parsedShortCode.replaceAll("s-", "city=");
+    parsedShortCode = parsedShortCode.replaceAll("d-", "district=");
+    parsedShortCode = parsedShortCode.replaceAll("f-", ".");
+    parsedShortCode = parsedShortCode.replaceAll("g-", ":");
+    parsedShortCode = parsedShortCode.replaceAll("b-", "/");
+    parsedShortCode = parsedShortCode.replaceAll("e-", "?");
+
+    let targetUrl = domain.domain + parsedShortCode;
 
     res.status(301);
 
